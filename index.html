@@ -463,3 +463,114 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Chat Box</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+}
+
+.chat-box {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.message {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 70%;
+}
+
+.user {
+  background: #22c55e;
+  align-self: flex-end;
+}
+
+.bot {
+  background: #1e293b;
+  align-self: flex-start;
+}
+
+.input-box {
+  display: flex;
+  padding: 10px;
+  background: #020617;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+button {
+  padding: 10px;
+  margin-left: 5px;
+  border: none;
+  border-radius: 10px;
+  background: #22c55e;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat-box" id="chat"></div>
+
+<div class="input-box">
+  <input type="text" id="input" placeholder="Type a message...">
+  <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+function addMessage(text, type) {
+  let msg = document.createElement("div");
+  msg.className = "message " + type;
+  msg.innerText = text;
+  document.getElementById("chat").appendChild(msg);
+  document.getElementById("chat").scrollTop = chat.scrollHeight;
+}
+
+function aiReply(input) {
+  input = input.toLowerCase();
+
+  if (input.includes("hello")) return "Hello! 👋";
+  if (input.includes("how are you")) return "I'm just code, but I'm doing great!";
+  if (input.includes("name")) return "I'm your AI Assistant 🤖";
+  if (input.includes("bye")) return "Goodbye! 👋";
+
+  return "I don't understand, but I'm learning!";
+}
+
+function sendMessage() {
+  let input = document.getElementById("input").value;
+  if (!input) return;
+
+  addMessage(input, "user");
+
+  setTimeout(() => {
+    let reply = aiReply(input);
+    addMessage(reply, "bot");
+  }, 500);
+
+  document.getElementById("input").value = "";
+}
+</script>
+
+</body>
+</html>
